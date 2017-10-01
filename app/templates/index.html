@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 id="hello"></h1>
+	<img id="image" src="" alt="Avatar" height="100" width="100">
+    <div><button onclick="next()">Next</button></div>
+	<script>
+		var usr = JSON.parse('{{ user|tojson }}');
+		var p = {{ picpic|tojson }};
+		console.log(p);
+		var twt = {{ tweets|tojson }};
+		var i = 0;
+
+		function makeUL(array) {
+		    // Create the list element:
+		    var list = document.createElement('ul');
+
+		    for(var i = 0; i < array.length; i++) {
+		        // Create the list item:
+		        var item = document.createElement('li');
+		        // Set its contents:
+		        item.appendChild(document.createTextNode(array[i]));
+		        // Add it to the list:
+		        list.appendChild(item);
+    	}
+		    // Finally, return the constructed list:
+		    return list;
+		}
+
+		function next() {
+			document.getElementById('image').src=p[i];
+			document.getElementById('text').innerHTML = "";
+			document.getElementById('hello').innerHTML = "Meet " + usr[i];
+			document.getElementById('text').appendChild( makeUL(twt[i]));
+			i++;
+		}
+		
+		// document.getElementById('image').src = "{{ pic }}";
+	</script>
+	<div id="text"></div>
+{% endblock %}
